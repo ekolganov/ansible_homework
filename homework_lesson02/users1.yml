@@ -1,0 +1,37 @@
+---
+- name: Create users
+  hosts: node1.example.com
+
+# get encrypted variable "pass"
+  vars_files:
+    - encrypted_password.yml
+
+  vars:
+    users:
+      Alice:
+        username: Alice
+        pswd: "{{ pass }}"
+      Bob:
+        username: Bob
+        pswd: "{{ pass }}"
+      Carol:
+        username: Carol
+        pswd: "{{ pass }}"
+
+  tasks:
+
+  - name: Create acc and homedir
+    user:
+      name: "{{ item.value.username }}"
+      password: "{{ item.value.pswd | password_hash('sha512') }}"
+      update_password: on_create
+      home: "/home/{{ item.value.username }}"
+      create_home: yes
+      comment: "{{ item.value.username }}@example.com"
+      shell: /bin/bash
+    loop: "{{ lookup('dict', users) }}"
+
+  - name: debugging
+    debug:
+      msg: "USERNAME: {{ item.value.username }} PASSWORD: {{ item.value.pswd | password_hash('sha512') }}"
+    loop: "{{ lookup('dict', users) }}"
