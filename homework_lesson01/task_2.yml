@@ -1,0 +1,23 @@
+---
+- name: uninstall Apache and close ports
+  hosts: node1.example.com
+
+  vars:
+    html_path: /var/www/html/index.html
+
+  tasks:
+  - name: uninstall apache
+    yum:
+      name: httpd
+      state: absent
+
+  - name: Delete html
+    shell: |
+      rm "{{ html_path }}"
+
+  - name: Close port
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      immediate: yes
+      state: disabled 

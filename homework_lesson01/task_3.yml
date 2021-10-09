@@ -1,0 +1,17 @@
+---
+- name: Insert GRUB CMDLINE LINUX
+  hosts: node1.example.com
+
+  vars:
+    path: /etc/default/grub
+
+  tasks:
+  - name: Replace CMDLINE string
+    lineinfile:
+      path: "{{ path }}"
+      regexp: '^GRUB_CMDLINE_LINUX'
+      line: 'GRUB_CMDLINE_LINUX=\"net.ifnames=0 biosdevname=0\"'
+
+  - name: Make grub mkconfig
+    shell: |
+      grub2-mkconfig
