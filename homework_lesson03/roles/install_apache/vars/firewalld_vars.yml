@@ -1,0 +1,3 @@
+---
+firewalld_target_port: 80
+firewalld_target_protocol: tcp

@@ -1,0 +1,10 @@
+---
+- name: Include firewalld vars
+  include_vars: firewalld_vars.yml 
+
+- name: Open port
+  firewalld:
+    port: "{{ firewalld_target_port }}/{{ firewalld_target_protocol }}"
+    permanent: yes
+    immediate: yes
+    state: enabled

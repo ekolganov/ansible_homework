@@ -1,2 +1,7 @@
 ---
 # defaults file for install_apache
+
+# Uncomment and use, if you wanna open specify port and protocol for install apache
+# defaults:
+# firewalld_target_port: 80
+# firewalld_target_protocol: tcp

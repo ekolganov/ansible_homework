@@ -1,2 +1,8 @@
 ---
 # handlers file for install_apache
+
+- name: start httpd
+  service: name=httpd state=started
+
+- name: enable httpd
+  service: name=httpd enabled=true
