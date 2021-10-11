@@ -1,1 +1,1 @@
-ansible-playbook --inventory-file inventory run_playbook_install_apache.yml
+ansible-playbook --inventory-file inventory playbook_install_apache.yml

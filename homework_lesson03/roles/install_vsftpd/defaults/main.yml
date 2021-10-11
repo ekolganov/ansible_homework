@@ -1,2 +1,23 @@
----
-# defaults file for install_vsftpd
+vsftpd_conf_template: "vsftpd.conf.j2"
+vsftpd_conf_path: "/etc/vsftpd"
+vsftpd_conf_file_name: "vsftpd.conf"
+vsftpd_create_directory: "/var/ftp/pub/upload"
+vsftpd_pub_directory: "/var/ftp/pub"
+
+
+# vsftpd conf
+anonymous_enable_param: "YES"
+write_enable_param: "YES"
+anon_upload_enable_param: "YES"
+anon_mkdir_write_enable_param: "YES"
+dirmessage_enable_param: "YES"
+anon_other_write_enable_param: "YES"
+connect_from_port_20_param: "YES"
+chown_uploads_param: "YES"
+chown_username_param: "ftp"
+anon_root_param: "{{ vsftpd_pub_directory }}"
+delete_failed_uploads_param: "YES"
+anon_umask_param: "0000"
+chown_upload_mode_param: "0777"
+file_open_mode_param: "0777"
+

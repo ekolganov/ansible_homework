@@ -1,2 +1,36 @@
 ---
 # tasks file for install_vsftpd
+
+- name: Install vsftpd
+  yum:
+    name: vsftpd
+    state: latest
+  notify:
+    - enable and start vsftpd
+
+- name: Copy vsftpd configuration
+  template:
+    src: "{{ vsftpd_conf_template }}"
+    dest: "{{ vsftpd_conf_path }}/{{ vsftpd_conf_file_name }}"
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Make custom directory and add rights
+  file:
+    path: "{{ vsftpd_create_directory }}"
+    state: directory
+    recurse: yes
+    owner: ftp
+    group: ftp
+    mode: "2777"
+
+- name: Allow ftp service on firewalld
+  firewalld:
+    service: ftp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Change context
+  command: chcon -t public_content_rw_t "{{ vsftpd_create_directory }}" 

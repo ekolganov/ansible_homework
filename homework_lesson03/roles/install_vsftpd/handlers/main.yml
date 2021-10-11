@@ -1,2 +1,8 @@
 ---
 # handlers file for install_vsftpd
+
+- name: enable and start vsftpd
+  service:
+    name: vsftpd
+    state: started
+    enabled: "yes"
